@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
 
 module.exports = path.dirname(process.mainModule.filename);
 
-app.get("./api/notes", (req, res) => {
+app.get("/api/notes", (req, res) => {
     res.set('Content-Type', 'application/json')
     res.end(fs.readFileSync("./db/db.json"))
 })
