@@ -11,15 +11,15 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
-//odule.exports = path.dirname(process.mainModule.filename);
+module.exports = path.dirname(process.mainModule.filename);
 
-app.get("/api/notes", (req, res) => {
+app.get("./api/notes", (req, res) => {
     res.set('Content-Type', 'application/json')
     res.end(fs.readFileSync("./db/db.json"))
 })
 
 app.post("/api/notes", (req, res) => {
-    let data = JSON.parse(fs.readFileSync("./db/db.json"))
+    let data = JSON.parse(fs.readFileSync('./db/db.json'))
     data.push({
         id: Math.random().toString(16),
         title: req.body.title,

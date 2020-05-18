@@ -1,12 +1,7 @@
-// @ts-ignore
 var $noteTitle = $(".note-title");
-// @ts-ignore
 var $noteText = $(".note-textarea");
-// @ts-ignore
 var $saveNoteBtn = $(".save-note");
-// @ts-ignore
 var $newNoteBtn = $(".new-note");
-// @ts-ignore
 var $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
@@ -14,7 +9,6 @@ var activeNote = {};
 
 // A function for getting all notes from the db
 var getNotes = function() {
-  // @ts-ignore
   return $.ajax({
     url: "/api/notes",
     method: "GET"
@@ -22,9 +16,7 @@ var getNotes = function() {
 };
 
 // A function for saving a note to the db
-// @ts-ignore
 var saveNote = function(note) {
-  // @ts-ignore
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -33,9 +25,7 @@ var saveNote = function(note) {
 };
 
 // A function for deleting a note from the db
-// @ts-ignore
 var deleteNote = function(id) {
-  // @ts-ignore
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -46,13 +36,10 @@ var deleteNote = function(id) {
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
 
-  // @ts-ignore
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
-    // @ts-ignore
     $noteTitle.val(activeNote.title);
-    // @ts-ignore
     $noteText.val(activeNote.text);
   } else {
     $noteTitle.attr("readonly", false);
@@ -69,7 +56,6 @@ var handleNoteSave = function() {
     text: $noteText.val()
   };
 
-  // @ts-ignore
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -77,20 +63,16 @@ var handleNoteSave = function() {
 };
 
 // Delete the clicked note
-// @ts-ignore
 var handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
-  // @ts-ignore
   var note = $(this)
     .parent(".list-group-item")
     .data();
 
-  // @ts-ignore
   if (activeNote.id === note.id) {
-    // @ts-ignore
-    activeNote = {id};
+    activeNote = {};
   }
 
   deleteNote(note.id).then(function() {
@@ -101,7 +83,6 @@ var handleNoteDelete = function(event) {
 
 // Sets the activeNote and displays it
 var handleNoteView = function() {
-  // @ts-ignore
   activeNote = $(this).data();
   renderActiveNote();
 };
@@ -123,7 +104,6 @@ var handleRenderSaveBtn = function() {
 };
 
 // Render's the list of note titles
-// @ts-ignore
 var renderNoteList = function(notes) {
   $noteList.empty();
 
@@ -132,11 +112,8 @@ var renderNoteList = function(notes) {
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
 
-    // @ts-ignore
     var $li = $("<li class='list-group-item'>").data(note);
-    // @ts-ignore
     var $span = $("<span>").text(note.title);
-    // @ts-ignore
     var $delBtn = $(
       "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
     );
@@ -150,7 +127,6 @@ var renderNoteList = function(notes) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-  // @ts-ignore
   return getNotes().then(function(data) {
     renderNoteList(data);
   });

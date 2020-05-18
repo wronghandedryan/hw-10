@@ -33,8 +33,10 @@ var saveNote = function(note) {
 };
 
 // A function for deleting a note from the db
-// @ts-ignore
-var deleteNote = function(id) {
+var deleteNote = /**
+ * @param {string} id
+ */
+ function(id) {
   // @ts-ignore
   return $.ajax({
     url: "api/notes/" + id,
